@@ -1,23 +1,56 @@
+:host {
+    display: block;
+    padding: var(--large-padding);
+}
+
 ul {
     padding: 0;
 
     li {
-        display: flex;
+        display: block;
         box-sizing: border-box;
-        justify-content: space-between;
-        align-items: center;
-        background-color: var(--background-light-color);
-        border-radius: var(--small-radius);
         margin: var(--small-margin) 0;
         padding: var(--medium-padding);
+        border-bottom: 1px var(--background-medium-color) dotted;
     }
 }
 
 .to-do-form {
     display: flex;
-    gap: 4px;
+    gap: var(--medium-gap);
+    align-items: center;
 
-    input {
+    mat-form-field {
         flex: 1;
     }
+}
+
+button {
+    color: var(--text-light-color);
+    border: none;
+    border-radius: var(--small-radius);
+    height: 36px;
+    min-width: 64px;
+    background-color: var(--background-dark-color);
+}
+
+button:hover {
+    filter: brightness(110%);
+    cursor: pointer;
+}
+
+button:active {
+    filter: brightness(90%);
+}
+
+button:disabled {
+    opacity: .5;
+}
+
+.button-add {
+    background-color: var(--success-color);
+}
+
+.button-delete {
+    background-color: var(--danger-color);
 }
