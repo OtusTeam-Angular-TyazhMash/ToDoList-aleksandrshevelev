@@ -1,15 +1,23 @@
 <h1>Todo List</h1>
 
-<ul>
-    <li *ngFor="let item of toDoListItems">
-        <app-to-do-list-item [toDoListItem]="item" (deleteItemEvent)="deleteToDoListItem($event)" />
-    </li>
-</ul>
+<ng-container *ngIf="isLoading === true; then loadingContainer; else toDoListContainer" />
+<ng-template #loadingContainer>
+    <div class="spinner-container">
+        <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+</ng-template>
+<ng-template #toDoListContainer>
+    <ul>
+        <li *ngFor="let item of toDoListItems">
+            <app-to-do-list-item [toDoListItem]="item" (deleteItemEvent)="deleteToDoListItem($event)" />
+        </li>
+    </ul>
+</ng-template>
 
 <div class="to-do-form">
     <mat-form-field>
         <mat-label>Add your new todo</mat-label>
         <input matInput type="text" [(ngModel)]="toDoInputValue">
     </mat-form-field>
-    <button class="button-add" (click)="addToDoListItem()" [disabled]="!toDoInputValue">Add</button>
+    <app-button (click)="addToDoListItem()" [isDisable]="!toDoInputValue" title="Add" buttonClass="button-add" />
 </div>

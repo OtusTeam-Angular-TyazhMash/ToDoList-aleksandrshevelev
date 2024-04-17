@@ -25,32 +25,8 @@ ul {
     }
 }
 
-button {
-    color: var(--text-light-color);
-    border: none;
-    border-radius: var(--small-radius);
-    height: 36px;
-    min-width: 64px;
-    background-color: var(--background-dark-color);
-}
-
-button:hover {
-    filter: brightness(110%);
-    cursor: pointer;
-}
-
-button:active {
-    filter: brightness(90%);
-}
-
-button:disabled {
-    opacity: .5;
-}
-
-.button-add {
-    background-color: var(--success-color);
-}
-
-.button-delete {
-    background-color: var(--danger-color);
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    margin: var(--large-margin);
 }
