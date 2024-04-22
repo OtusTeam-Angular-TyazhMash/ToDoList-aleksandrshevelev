@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class ButtonComponent {
     @Input() title!: string;
-    @Input() buttonClass!: string;
+    @Input() buttonClass: 'button-delete' | 'button-add' | null = null;
     @Input() isDisable = false;
 }
