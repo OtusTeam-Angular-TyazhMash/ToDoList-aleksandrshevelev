@@ -1,5 +1,6 @@
 // Модель элемента списка ToDoList
 export interface ToDoListItem {
     id: number,
-    text: string
+    text: string,
+    description: string
 }
