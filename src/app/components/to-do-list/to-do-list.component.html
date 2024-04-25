@@ -1,23 +1,42 @@
 <h1>Todo List</h1>
 
-<ng-container *ngIf="isLoading === true; then loadingContainer; else toDoListContainer" />
-<ng-template #loadingContainer>
+<ng-container *ngIf="isLoading === true; then loadingTemplate; else toDoListTemplate" />
+<ng-template #loadingTemplate>
     <div class="spinner-container">
         <mat-spinner [diameter]="50"></mat-spinner>
     </div>
 </ng-template>
-<ng-template #toDoListContainer>
-    <ul>
-        <li *ngFor="let item of toDoListItems">
-            <app-to-do-list-item [toDoListItem]="item" (deleteItemEvent)="deleteToDoListItem($event)" />
-        </li>
-    </ul>
+<ng-template #toDoListTemplate>
+    <div class="to-to-list-container">
+        <ul>
+            <li *ngFor="let item of toDoListItems" (click)="setSelectedItemId(item.id)" tabindex="0"
+                (keydown.enter)="setSelectedItemId(item.id)" [class.selected]="item.id === selectedItemId"
+                [appTooltip]="'Select todo list item'">
+                <app-to-do-list-item [toDoListItem]="item" (deleteItemEvent)="deleteToDoListItem($event)" />
+            </li>
+        </ul>
+        <div class="description-container">
+            <h3>Description</h3>
+            <ng-container *ngIf="selectedItemId !== null; then descriptionTemplate; else hintTemplate" />
+            <ng-template #descriptionTemplate>
+                <p>{{getSelectedItemDescription()}}</p>
+            </ng-template>
+            <ng-template #hintTemplate>
+                <p class="hint-text">Select todo list item...</p>
+            </ng-template>
+        </div>
+    </div>
 </ng-template>
 
 <div class="to-do-form">
     <mat-form-field>
         <mat-label>Add your new todo</mat-label>
-        <input matInput type="text" [(ngModel)]="toDoInputValue">
+        <input matInput type="text" [(ngModel)]="toDoInputText">
     </mat-form-field>
-    <app-button (click)="addToDoListItem()" [isDisable]="!toDoInputValue" title="Add" buttonClass="button-add" />
+    <mat-form-field>
+        <mat-label>Add description for todo</mat-label>
+        <textarea matInput [(ngModel)]="toDoInputDescription"></textarea>
+    </mat-form-field>
+    <app-button (click)="addToDoListItem()" [isDisable]="!toDoInputText || !toDoInputDescription" title="Add"
+        buttonClass="button-add" [appTooltip]="'Add a new item to the todo list'" />
 </div>
