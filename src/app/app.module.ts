@@ -6,20 +6,22 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToDoListItemComponent } from './components/to-do-list-item/to-do-list-item.component';
 import { AngularMaterialModule } from './angular-material.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
     declarations: [
         AppComponent,
         ToDoListComponent,
-        ToDoListItemComponent
+        ToDoListItemComponent,
     ],
     imports: [
         BrowserModule,
         FormsModule,
         BrowserAnimationsModule,
         AngularMaterialModule,
+        SharedModule,
     ],
     providers: [],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
 export class AppModule { }
