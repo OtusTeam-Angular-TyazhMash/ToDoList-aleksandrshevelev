@@ -1,6 +1,21 @@
 <h1>Todo List</h1>
 
 <ng-container *ngIf="isLoading === true; then loadingTemplate; else toDoListTemplate" />
+
+<div class="to-do-form">
+    <mat-form-field>
+        <mat-label>Add your new todo</mat-label>
+        <input matInput type="text" [(ngModel)]="toDoInputText">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Add description for todo</mat-label>
+        <textarea matInput [(ngModel)]="toDoInputDescription"></textarea>
+    </mat-form-field>
+    <app-button (click)="addToDoListItem()" [isDisable]="!toDoInputText || !toDoInputDescription" title="Add"
+        buttonClass="button-add" [appTooltip]="'Add a new item to the todo list'" />
+</div>
+
+<!-- Templates -->
 <ng-template #loadingTemplate>
     <div class="spinner-container">
         <mat-spinner [diameter]="50"></mat-spinner>
@@ -18,25 +33,12 @@
         <div class="description-container">
             <h3>Description</h3>
             <ng-container *ngIf="selectedItemId !== null; then descriptionTemplate; else hintTemplate" />
-            <ng-template #descriptionTemplate>
-                <p>{{getSelectedItemDescription()}}</p>
-            </ng-template>
-            <ng-template #hintTemplate>
-                <p class="hint-text">Select todo list item...</p>
-            </ng-template>
         </div>
     </div>
 </ng-template>
-
-<div class="to-do-form">
-    <mat-form-field>
-        <mat-label>Add your new todo</mat-label>
-        <input matInput type="text" [(ngModel)]="toDoInputText">
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Add description for todo</mat-label>
-        <textarea matInput [(ngModel)]="toDoInputDescription"></textarea>
-    </mat-form-field>
-    <app-button (click)="addToDoListItem()" [isDisable]="!toDoInputText || !toDoInputDescription" title="Add"
-        buttonClass="button-add" [appTooltip]="'Add a new item to the todo list'" />
-</div>
+<ng-template #descriptionTemplate>
+    <p>{{getSelectedItemDescription()}}</p>
+</ng-template>
+<ng-template #hintTemplate>
+    <p class="hint-text">Select todo list item...</p>
+</ng-template>
