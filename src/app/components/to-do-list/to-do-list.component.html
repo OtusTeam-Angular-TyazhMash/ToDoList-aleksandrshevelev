@@ -3,11 +3,11 @@
 <ng-container *ngIf="isLoading === true; then loadingTemplate; else toDoListTemplate" />
 
 <div class="to-do-form">
-    <mat-form-field>
+    <mat-form-field subscriptSizing="dynamic">
         <mat-label>Add your new todo</mat-label>
         <input matInput type="text" [(ngModel)]="toDoInputText">
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field subscriptSizing="dynamic">
         <mat-label>Add description for todo</mat-label>
         <textarea matInput [(ngModel)]="toDoInputDescription"></textarea>
     </mat-form-field>
@@ -24,10 +24,12 @@
 <ng-template #toDoListTemplate>
     <div class="to-to-list-container">
         <ul>
-            <li *ngFor="let item of toDoListItems" (click)="setSelectedItemId(item.id)" tabindex="0"
-                (keydown.enter)="setSelectedItemId(item.id)" [class.selected]="item.id === selectedItemId"
-                [appTooltip]="'Select todo list item'">
-                <app-to-do-list-item [toDoListItem]="item" (deleteItemEvent)="deleteToDoListItem($event)" />
+            <li *ngFor="let item of getToDoListItems" [class.selected]="item.id === selectedItemId"
+                (click)="setSelectedItemId(item.id)" (dblclick)="setEditedItemId(item.id)" tabindex="0"
+                (keydown.enter)="setSelectedItemId(item.id)"
+                [appTooltip]="'Click for select item / Double click for edit item'">
+                <app-to-do-list-item [toDoListItem]="item" [isEditMode]="item.id === editedItemId"
+                    (deleteItemEvent)="deleteToDoListItemById($event)" (editItemEvent)="editToDoListItem($event)" />
             </li>
         </ul>
         <div class="description-container">

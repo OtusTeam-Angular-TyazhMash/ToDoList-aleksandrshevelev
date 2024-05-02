@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToDoListItem } from 'src/app/models/to-do-list-models';
 
 @Component({
@@ -6,11 +6,23 @@ import { ToDoListItem } from 'src/app/models/to-do-list-models';
     templateUrl: './to-do-list-item.component.html',
     styleUrls: ['./to-do-list-item.component.scss'],
 })
-export class ToDoListItemComponent {
+export class ToDoListItemComponent implements OnInit {
     @Input({ required: true }) toDoListItem!: ToDoListItem;
+    @Input() isEditMode = false;
     @Output() deleteItemEvent = new EventEmitter<ToDoListItem["id"]>();
+    @Output() editItemEvent = new EventEmitter<ToDoListItem>();
+    itemTitle!: ToDoListItem["text"];
 
-    emitItemDeletion(itemId: ToDoListItem["id"]): void {
-        this.deleteItemEvent.emit(itemId);
+    ngOnInit(): void {
+        this.itemTitle = this.toDoListItem ? this.toDoListItem.text : "";
+    }
+
+    emitItemDeletion(): void {
+        this.deleteItemEvent.emit(this.toDoListItem.id);
+    }
+
+    emitItemEditing(): void {
+        this.toDoListItem.text = this.itemTitle;
+        this.editItemEvent.emit(this.toDoListItem);
     }
 }

@@ -5,3 +5,15 @@
     align-items: center;
     gap: var(--medium-gap);
 }
+
+.item-edit-form {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--medium-gap);
+
+    mat-form-field {
+        flex: 1;
+    }
+}

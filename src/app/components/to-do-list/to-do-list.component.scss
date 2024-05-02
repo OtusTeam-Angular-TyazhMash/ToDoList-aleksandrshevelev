@@ -24,6 +24,7 @@ ul {
 .to-do-form {
     display: flex;
     flex-direction: column;
+    gap: var(--medium-gap);
 
     app-button {
         align-self: center;
