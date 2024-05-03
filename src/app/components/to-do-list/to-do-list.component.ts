@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToDoListItem } from 'src/app/models/to-do-list-models';
+import { ToDoListService } from './to-do-list.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
     selector: 'app-to-do-list',
@@ -7,38 +9,42 @@ import { ToDoListItem } from 'src/app/models/to-do-list-models';
     styleUrls: ['./to-do-list.component.scss'],
 })
 export class ToDoListComponent implements OnInit {
-    toDoListItems: Array<ToDoListItem> = [
-        { id: 0, text: "Complete task 1", description: "Description for task 1" },
-        { id: 1, text: "Complete task 2", description: "Description for task 2" },
-        { id: 2, text: "Complete task 3", description: "Description for task 3" },
-        { id: 3, text: "Complete task 4", description: "Description for task 4" },
-        { id: 4, text: "Complete task 5", description: "Description for task 5" },
-    ];
     toDoInputText = "";
     toDoInputDescription = "";
     isLoading = true;
     selectedItemId: ToDoListItem["id"] | null = null;
+    editedItemId: ToDoListItem["id"] | null = null;
+
+    constructor(private toDoListService: ToDoListService,
+        private toastService: ToastService) { }
 
     ngOnInit(): void {
         setTimeout(() => this.isLoading = false, 500);
     }
 
-    addToDoListItem(): void {
-        const maxItemId: number = Math.max(...this.toDoListItems.map(item => item.id), -1);
-        this.toDoListItems.push({
-            id: maxItemId + 1,
-            text: this.toDoInputText,
-            description: this.toDoInputDescription,
-        });
-        this.toDoInputText = "";
-        this.toDoInputDescription = "";
+    get getToDoListItems() {
+        return this.toDoListService.getToDoListItems;
     }
 
-    deleteToDoListItem(itemId: ToDoListItem["id"]): void {
-        const itemIndex: number = this.toDoListItems.findIndex(item => item.id === itemId);
-        if (itemIndex > -1) {
-            this.toDoListItems.splice(itemIndex, 1);
-            this.selectedItemId = null;
+    addToDoListItem(): void {
+        this.toDoListService.addToDoListItem(this.toDoInputText, this.toDoInputDescription);
+        this.toDoInputText = "";
+        this.toDoInputDescription = "";
+        this.toastService.showToast("Item added");
+    }
+
+    deleteToDoListItemById(itemId: ToDoListItem["id"]): void {
+        if (this.toDoListService.deleteToDoListItemById(itemId)) {
+            if (itemId === this.selectedItemId)
+                this.selectedItemId = null;
+            this.toastService.showToast("Item deleted");
+        }
+    }
+
+    editToDoListItemTitleById(itemId: ToDoListItem["id"], title: ToDoListItem["text"]): void {
+        if (this.toDoListService.editToDoListItemTitleById(itemId, title)) {
+            this.editedItemId = null;
+            this.toastService.showToast("Item edited");
         }
     }
 
@@ -46,8 +52,15 @@ export class ToDoListComponent implements OnInit {
         this.selectedItemId = itemId;
     }
 
+    setEditedItemId(itemId: ToDoListItem["id"]): void {
+        this.editedItemId = itemId;
+    }
+
     getSelectedItemDescription(): ToDoListItem["description"] {
-        const toDoListItem: ToDoListItem | undefined = this.toDoListItems.find(item => item.id === this.selectedItemId);
-        return toDoListItem ? toDoListItem.description : "";
+        if (this.selectedItemId !== null) {
+            const toDoListItem = this.toDoListService.getToDoListItemById(this.selectedItemId);
+            return toDoListItem ? toDoListItem.description : "";
+        } else
+            return "";
     }
 }

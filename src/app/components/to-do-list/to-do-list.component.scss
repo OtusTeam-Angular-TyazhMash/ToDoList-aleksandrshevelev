@@ -10,7 +10,6 @@ ul {
 
     li {
         display: block;
-        box-sizing: border-box;
         margin: var(--small-margin) 0;
         padding: var(--medium-padding);
         border-bottom: 1px var(--background-medium-color) dotted;
@@ -25,6 +24,7 @@ ul {
 .to-do-form {
     display: flex;
     flex-direction: column;
+    gap: var(--medium-gap);
 
     app-button {
         align-self: center;
@@ -48,7 +48,6 @@ ul {
     max-width: 30%;
     border-left: 1px var(--background-medium-color) dotted;
     padding: var(--small-padding);
-    box-sizing: border-box;
 }
 
 .selected {
