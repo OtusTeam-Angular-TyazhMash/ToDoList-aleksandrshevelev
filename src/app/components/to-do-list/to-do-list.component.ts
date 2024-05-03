@@ -41,8 +41,8 @@ export class ToDoListComponent implements OnInit {
         }
     }
 
-    editToDoListItem(toDoListItem: ToDoListItem): void {
-        if (this.toDoListService.editToDoListItem(toDoListItem)) {
+    editToDoListItemTitleById(itemId: ToDoListItem["id"], title: ToDoListItem["text"]): void {
+        if (this.toDoListService.editToDoListItemTitleById(itemId, title)) {
             this.editedItemId = null;
             this.toastService.showToast("Item edited");
         }

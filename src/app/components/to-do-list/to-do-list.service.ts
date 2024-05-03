@@ -40,10 +40,10 @@ export class ToDoListService {
             return false;
     }
 
-    editToDoListItem(toDoListItem: ToDoListItem): boolean {
-        const itemIndex = this.toDoListItems.findIndex(item => item.id === toDoListItem.id);
+    editToDoListItemTitleById(itemId: ToDoListItem["id"], text: ToDoListItem["text"]): boolean {
+        const itemIndex = this.toDoListItems.findIndex(item => item.id === itemId);
         if (itemIndex > -1) {
-            this.toDoListItems[itemIndex] = toDoListItem;
+            this.toDoListItems[itemIndex].text = text;
             return true;
         } else
             return false;

@@ -29,7 +29,8 @@
                 (keydown.enter)="setSelectedItemId(item.id)"
                 [appTooltip]="'Click for select item / Double click for edit item'">
                 <app-to-do-list-item [toDoListItem]="item" [isEditMode]="item.id === editedItemId"
-                    (deleteItemEvent)="deleteToDoListItemById($event)" (editItemEvent)="editToDoListItem($event)" />
+                    (deleteItemEvent)="deleteToDoListItemById(item.id)"
+                    (editItemTitleEvent)="editToDoListItemTitleById(item.id, $event)" />
             </li>
         </ul>
         <div class="description-container">

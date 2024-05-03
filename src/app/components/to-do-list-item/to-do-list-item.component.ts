@@ -9,8 +9,8 @@ import { ToDoListItem } from 'src/app/models/to-do-list-models';
 export class ToDoListItemComponent implements OnInit {
     @Input({ required: true }) toDoListItem!: ToDoListItem;
     @Input() isEditMode = false;
-    @Output() deleteItemEvent = new EventEmitter<ToDoListItem["id"]>();
-    @Output() editItemEvent = new EventEmitter<ToDoListItem>();
+    @Output() deleteItemEvent = new EventEmitter();
+    @Output() editItemTitleEvent = new EventEmitter<ToDoListItem["text"]>();
     itemTitle!: ToDoListItem["text"];
 
     ngOnInit(): void {
@@ -18,11 +18,10 @@ export class ToDoListItemComponent implements OnInit {
     }
 
     emitItemDeletion(): void {
-        this.deleteItemEvent.emit(this.toDoListItem.id);
+        this.deleteItemEvent.emit();
     }
 
-    emitItemEditing(): void {
-        this.toDoListItem.text = this.itemTitle;
-        this.editItemEvent.emit(this.toDoListItem);
+    emitItemTitleEditing(): void {
+        this.editItemTitleEvent.emit(this.itemTitle);
     }
 }
