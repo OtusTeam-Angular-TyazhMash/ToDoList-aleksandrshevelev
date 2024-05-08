@@ -21,14 +21,10 @@ ul {
     }
 }
 
-.to-do-form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--medium-gap);
-
-    app-button {
-        align-self: center;
-    }
+.to-do-form-container {
+    display: block;
+    width: 50%;
+    margin: auto;
 }
 
 .spinner-container {
@@ -39,7 +35,7 @@ ul {
 
 .to-to-list-container {
     display: flex;
-    margin: var(--medium-margin);
+    margin: var(--medium-margin) 0;
     gap: var(--medium-gap);
 }
 

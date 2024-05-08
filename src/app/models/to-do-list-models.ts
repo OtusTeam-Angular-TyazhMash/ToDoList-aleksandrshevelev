@@ -2,5 +2,12 @@
 export interface ToDoListItem {
     id: number,
     text: string,
-    description: string
+    description: string,
+    status: ToDoListItemStatus
+}
+
+// Статусы элемента списка ToDoList
+export enum ToDoListItemStatus {
+    InProgress = "InProgress",
+    Completed = "Completed"
 }
