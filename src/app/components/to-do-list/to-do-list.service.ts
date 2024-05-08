@@ -9,7 +9,7 @@ import { ToDoListItem, ToDoListItemStatus } from 'src/app/models/to-do-list-mode
 export class ToDoListService {
     private toDoListUrl = "http://localhost:3000/to-do-list";
 
-    constructor(private httpClient: HttpClient,) { }
+    constructor(private httpClient: HttpClient) { }
 
     getToDoListItems(): Observable<Array<ToDoListItem>> {
         return this.httpClient.get<Array<ToDoListItem>>(this.toDoListUrl);
@@ -23,7 +23,7 @@ export class ToDoListService {
         return this.httpClient.post<ToDoListItem>(this.toDoListUrl, {
             text: text,
             description: description,
-            status: ToDoListItemStatus.InProgress
+            status: ToDoListItemStatus.InProgress,
         });
     }
 

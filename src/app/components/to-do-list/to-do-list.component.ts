@@ -32,7 +32,7 @@ export class ToDoListComponent implements OnInit {
             },
             error: () => {
                 this.toastService.showToast("Failed to load todo list");
-            }
+            },
         });
     }
 
@@ -44,7 +44,7 @@ export class ToDoListComponent implements OnInit {
             },
             error: () => {
                 this.toastService.showToast("Failed to add todo");
-            }
+            },
         });
     }
 
@@ -60,7 +60,7 @@ export class ToDoListComponent implements OnInit {
             },
             error: () => {
                 this.toastService.showToast("Failed to delete todo");
-            }
+            },
         });
     }
 
@@ -74,7 +74,7 @@ export class ToDoListComponent implements OnInit {
             },
             error: () => {
                 this.toastService.showToast("Failed to edit todo");
-            }
+            },
         });
     }
 
@@ -100,7 +100,7 @@ export class ToDoListComponent implements OnInit {
             },
             error: () => {
                 this.toastService.showToast("Failed to edit todo");
-            }
+            },
         });
     }
 
@@ -114,7 +114,7 @@ export class ToDoListComponent implements OnInit {
                 },
                 error: () => {
                     this.toastService.showToast("Failed to load todo list");
-                }
+                },
             });
     }
 }

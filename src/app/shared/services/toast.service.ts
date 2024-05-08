@@ -49,7 +49,7 @@ export class ToastService {
         if (this.componentRef !== null) {
             this.applicationRef.detachView(this.componentRef.hostView);
             this.componentRef.destroy();
-            this.componentRef = null
+            this.componentRef = null;
         }
     }
 

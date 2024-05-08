@@ -7,7 +7,7 @@ export type CreateItemFormData = Pick<ToDoListItem, "text" | "description">;
 @Component({
     selector: 'app-to-do-create-item',
     templateUrl: './to-do-create-item.component.html',
-    styleUrls: ['./to-do-create-item.component.scss']
+    styleUrls: ['./to-do-create-item.component.scss'],
 })
 export class ToDoCreateItemComponent implements OnInit {
     toDoItemForm!: FormGroup;
@@ -18,14 +18,14 @@ export class ToDoCreateItemComponent implements OnInit {
     ngOnInit(): void {
         this.toDoItemForm = this.fb.group({
             itemTitle: ['', Validators.required],
-            itemDescription: ['', Validators.required]
+            itemDescription: ['', Validators.required],
         });
     }
 
     emitCreatingItem(): void {
         this.createItemEvent.emit({
             text: this.toDoItemForm.controls['itemTitle'].value,
-            description: this.toDoItemForm.controls['itemDescription'].value
+            description: this.toDoItemForm.controls['itemDescription'].value,
         });
         this.toDoItemForm.reset();
     }
