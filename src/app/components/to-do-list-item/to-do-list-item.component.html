@@ -1,7 +1,7 @@
 <mat-checkbox [checked]="toDoListItem.status === toDoListItemStatus.Completed"
     (change)="emitItemStatusChange($event)" />
 <ng-container *ngIf="isEditMode; then editItemTemplate; else viewItemTemplate"></ng-container>
-<app-button (click)="emitItemDeletion()" buttonClass="button-delete"
+<app-button (click)="emitItemDeletion(); $event.stopPropagation()" buttonClass="button-delete"
     [appTooltip]="'Delete item from todo list'">Delete</app-button>
 
 <!-- Templates -->

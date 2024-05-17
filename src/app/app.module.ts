@@ -9,6 +9,8 @@ import { AngularMaterialModule } from './angular-material.module';
 import { SharedModule } from './shared/shared.module';
 import { ToDoCreateItemComponent } from './components/to-do-create-item/to-do-create-item.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
+import { ToDoItemViewComponent } from './components/to-do-item-view/to-do-item-view.component';
 
 @NgModule({
     declarations: [
@@ -16,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
         ToDoListComponent,
         ToDoListItemComponent,
         ToDoCreateItemComponent,
+        ToDoItemViewComponent,
     ],
     imports: [
         BrowserModule,
@@ -25,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
         SharedModule,
         ReactiveFormsModule,
         HttpClientModule,
+        AppRoutingModule,
     ],
     providers: [],
     bootstrap: [AppComponent],

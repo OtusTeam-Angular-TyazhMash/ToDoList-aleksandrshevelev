@@ -4,6 +4,7 @@ import { ToDoListService } from './to-do-list.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { CreateItemFormData } from '../to-do-create-item/to-do-create-item.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-to-do-list',
@@ -13,16 +14,21 @@ import { CreateItemFormData } from '../to-do-create-item/to-do-create-item.compo
 export class ToDoListComponent implements OnInit {
     toDoListItems: Array<ToDoListItem> = [];
     isLoading = true;
-    selectedItemId: ToDoListItem["id"] | null = null;
     editedItemId: ToDoListItem["id"] | null = null;
     readonly toDoListItemStatus = ToDoListItemStatus;
 
     constructor(private toDoListService: ToDoListService,
-        private toastService: ToastService) { }
+        private toastService: ToastService,
+        private activatedRoute: ActivatedRoute) { }
 
     ngOnInit(): void {
         setTimeout(() => this.isLoading = false, 500);
         this.fetchToDoList();
+    }
+
+    public get getItemIdFromRoute(): number | null {
+        return this.activatedRoute.snapshot.children.length === 0 ?
+            null : +this.activatedRoute.snapshot.children[0].params['id'];
     }
 
     fetchToDoList(): void {
@@ -54,8 +60,6 @@ export class ToDoListComponent implements OnInit {
                 const deletedItemIndex = this.toDoListItems.findIndex(item => item.id === itemId);
                 if (deletedItemIndex > -1)
                     this.toDoListItems.splice(deletedItemIndex, 1);
-                if (itemId === this.selectedItemId)
-                    this.selectedItemId = null;
                 this.toastService.showToast("Todo deleted");
             },
             error: () => {
@@ -78,17 +82,8 @@ export class ToDoListComponent implements OnInit {
         });
     }
 
-    setSelectedItemId(itemId: ToDoListItem["id"]): void {
-        this.selectedItemId = itemId;
-    }
-
     setEditedItemId(itemId: ToDoListItem["id"]): void {
         this.editedItemId = itemId;
-    }
-
-    getSelectedItemDescription(): ToDoListItem["description"] {
-        const selectedItem = this.toDoListItems.find(item => item.id === this.selectedItemId);
-        return selectedItem ? selectedItem.description : "";
     }
 
     editToDoListItemStatusById(itemId: ToDoListItem["id"], itemStatus: ToDoListItem["status"]): void {

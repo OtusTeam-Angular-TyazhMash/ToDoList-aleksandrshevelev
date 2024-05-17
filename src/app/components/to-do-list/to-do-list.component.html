@@ -22,9 +22,8 @@
     <div class="to-to-list-container">
         <ng-container *ngIf="toDoListItems.length > 0; else emptyListMessageTemplate">
             <ul>
-                <li *ngFor="let item of toDoListItems" [class.selected]="item.id === selectedItemId"
-                    (click)="setSelectedItemId(item.id)" (dblclick)="setEditedItemId(item.id)" tabindex="0"
-                    (keydown.enter)="setSelectedItemId(item.id)"
+                <li *ngFor="let item of toDoListItems" routerLinkActive="selected" [routerLink]="[item.id]"
+                    (dblclick)="setEditedItemId(item.id)" tabindex="0"
                     [appTooltip]="'Click for select item / Double click for edit item'">
                     <app-to-do-list-item [toDoListItem]="item" [isEditMode]="item.id === editedItemId"
                         (deleteItemEvent)="deleteToDoListItemById(item.id)"
@@ -33,8 +32,7 @@
                 </li>
             </ul>
             <div class="description-container">
-                <h3>Description</h3>
-                <ng-container *ngIf="selectedItemId !== null; then descriptionTemplate; else hintTemplate" />
+                <ng-container *ngIf="getItemIdFromRoute !== null; then descriptionTemplate; else hintTemplate" />
             </div>
         </ng-container>
         <ng-template #emptyListMessageTemplate>
@@ -43,7 +41,7 @@
     </div>
 </ng-template>
 <ng-template #descriptionTemplate>
-    <p>{{getSelectedItemDescription()}}</p>
+    <router-outlet></router-outlet>
 </ng-template>
 <ng-template #hintTemplate>
     <p class="hint-text">Select todo list item...</p>
