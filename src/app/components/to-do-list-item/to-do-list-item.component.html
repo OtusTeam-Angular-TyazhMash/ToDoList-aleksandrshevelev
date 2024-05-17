@@ -1,3 +1,19 @@
-{{toDoListItem.text}}
-<app-button (click)="emitItemDeletion(toDoListItem.id)" title="Delete" buttonClass="button-delete"
-    [appTooltip]="'Delete item from todo list'" />
+<mat-checkbox [checked]="toDoListItem.status === toDoListItemStatus.Completed"
+    (change)="emitItemStatusChange($event)" />
+<ng-container *ngIf="isEditMode; then editItemTemplate; else viewItemTemplate"></ng-container>
+<app-button (click)="emitItemDeletion(); $event.stopPropagation()" buttonClass="button-delete"
+    [appTooltip]="'Delete item from todo list'">Delete</app-button>
+
+<!-- Templates -->
+<ng-template #editItemTemplate>
+    <div class="item-edit-form">
+        <mat-form-field subscriptSizing="dynamic">
+            <mat-label>Item editing</mat-label>
+            <input matInput type="text" [(ngModel)]="itemTitle">
+        </mat-form-field>
+        <app-button (click)="emitItemTitleEditing()" [appTooltip]="'Save item'">Save</app-button>
+    </div>
+</ng-template>
+<ng-template #viewItemTemplate>
+    <span class="list-item-text">{{toDoListItem.text}}</span>
+</ng-template>

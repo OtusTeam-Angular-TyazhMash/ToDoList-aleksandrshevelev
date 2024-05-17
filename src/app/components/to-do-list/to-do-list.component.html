@@ -1,42 +1,48 @@
 <h1>Todo List</h1>
 
 <ng-container *ngIf="isLoading === true; then loadingTemplate; else toDoListTemplate" />
+
+<div class="to-do-form-container">
+    <app-to-do-create-item (createItemEvent)="addToDoListItem($event)" />
+</div>
+
+<!-- Templates -->
 <ng-template #loadingTemplate>
     <div class="spinner-container">
-        <mat-spinner [diameter]="50"></mat-spinner>
+        <app-loading-spinner />
     </div>
 </ng-template>
 <ng-template #toDoListTemplate>
+    <span>Show todo: </span>
+    <mat-button-toggle-group [value]="null" (change)="onStatusFilterChange($event)">
+        <mat-button-toggle [value]="null">All</mat-button-toggle>
+        <mat-button-toggle [value]="toDoListItemStatus.InProgress">In progress</mat-button-toggle>
+        <mat-button-toggle [value]="toDoListItemStatus.Completed">Completed</mat-button-toggle>
+    </mat-button-toggle-group>
     <div class="to-to-list-container">
-        <ul>
-            <li *ngFor="let item of toDoListItems" (click)="setSelectedItemId(item.id)" tabindex="0"
-                (keydown.enter)="setSelectedItemId(item.id)" [class.selected]="item.id === selectedItemId"
-                [appTooltip]="'Select todo list item'">
-                <app-to-do-list-item [toDoListItem]="item" (deleteItemEvent)="deleteToDoListItem($event)" />
-            </li>
-        </ul>
-        <div class="description-container">
-            <h3>Description</h3>
-            <ng-container *ngIf="selectedItemId !== null; then descriptionTemplate; else hintTemplate" />
-            <ng-template #descriptionTemplate>
-                <p>{{getSelectedItemDescription()}}</p>
-            </ng-template>
-            <ng-template #hintTemplate>
-                <p class="hint-text">Select todo list item...</p>
-            </ng-template>
-        </div>
+        <ng-container *ngIf="toDoListItems.length > 0; else emptyListMessageTemplate">
+            <ul>
+                <li *ngFor="let item of toDoListItems" routerLinkActive="selected" [routerLink]="[item.id]"
+                    (dblclick)="setEditedItemId(item.id)" tabindex="0"
+                    [appTooltip]="'Click for select item / Double click for edit item'">
+                    <app-to-do-list-item [toDoListItem]="item" [isEditMode]="item.id === editedItemId"
+                        (deleteItemEvent)="deleteToDoListItemById(item.id)"
+                        (editItemTitleEvent)="editToDoListItemTitleById(item.id, $event)"
+                        (changeItemStatusEvent)="editToDoListItemStatusById(item.id, $event)" />
+                </li>
+            </ul>
+            <div class="description-container">
+                <ng-container *ngIf="getItemIdFromRoute !== null; then descriptionTemplate; else hintTemplate" />
+            </div>
+        </ng-container>
+        <ng-template #emptyListMessageTemplate>
+            <h2>The list is empty</h2>
+        </ng-template>
     </div>
 </ng-template>
-
-<div class="to-do-form">
-    <mat-form-field>
-        <mat-label>Add your new todo</mat-label>
-        <input matInput type="text" [(ngModel)]="toDoInputText">
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Add description for todo</mat-label>
-        <textarea matInput [(ngModel)]="toDoInputDescription"></textarea>
-    </mat-form-field>
-    <app-button (click)="addToDoListItem()" [isDisable]="!toDoInputText || !toDoInputDescription" title="Add"
-        buttonClass="button-add" [appTooltip]="'Add a new item to the todo list'" />
-</div>
+<ng-template #descriptionTemplate>
+    <router-outlet></router-outlet>
+</ng-template>
+<ng-template #hintTemplate>
+    <p class="hint-text">Select todo list item...</p>
+</ng-template>
