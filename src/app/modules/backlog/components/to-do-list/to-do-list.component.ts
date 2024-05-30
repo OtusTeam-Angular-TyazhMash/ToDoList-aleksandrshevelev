@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ToDoListItem, ToDoListItemStatus } from 'src/app/models/to-do-list-models';
-import { ToDoListService } from './to-do-list.service';
-import { ToastService } from 'src/app/shared/services/toast.service';
+import { ToDoListService } from '../../../../services/to-do-list.service';
+import { ToastService } from 'src/app/services/toast.service';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { CreateItemFormData } from '../to-do-create-item/to-do-create-item.component';
 import { ActivatedRoute } from '@angular/router';
+import { tap } from 'rxjs';
 
 @Component({
     selector: 'app-to-do-list',
@@ -13,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ToDoListComponent implements OnInit {
     toDoListItems: Array<ToDoListItem> = [];
-    isLoading = true;
+    isLoading = false;
     editedItemId: ToDoListItem["id"] | null = null;
     readonly toDoListItemStatus = ToDoListItemStatus;
 
@@ -22,7 +23,6 @@ export class ToDoListComponent implements OnInit {
         private activatedRoute: ActivatedRoute) { }
 
     ngOnInit(): void {
-        setTimeout(() => this.isLoading = false, 500);
         this.fetchToDoList();
     }
 
@@ -32,13 +32,16 @@ export class ToDoListComponent implements OnInit {
     }
 
     fetchToDoList(): void {
-        this.toDoListService.getToDoListItems().subscribe({
+        this.toDoListService.getToDoListItems().pipe(
+            tap(() => this.isLoading = true),
+        ).subscribe({
             next: (receivedToDoListItems) => {
                 this.toDoListItems = receivedToDoListItems;
             },
             error: () => {
                 this.toastService.showToast("Failed to load todo list");
             },
+            complete: () => this.isLoading = false,
         });
     }
 

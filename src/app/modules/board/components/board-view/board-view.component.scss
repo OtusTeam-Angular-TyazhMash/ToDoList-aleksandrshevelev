@@ -1,0 +1,23 @@
+:host {
+    display: flex;
+    gap: var(--large-gap);
+}
+
+.header {
+    flex: 0;
+}
+
+.board-column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--medium-gap);
+    flex: 1;
+}
+
+.success {
+    background-color: var(--success-color);
+}
+
+.warning {
+    background-color: var(--warning-color);
+}

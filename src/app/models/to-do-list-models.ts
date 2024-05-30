@@ -8,6 +8,6 @@ export interface ToDoListItem {
 
 // Статусы элемента списка ToDoList
 export enum ToDoListItemStatus {
-    InProgress = "InProgress",
+    InProgress = "In Progress",
     Completed = "Completed"
 }

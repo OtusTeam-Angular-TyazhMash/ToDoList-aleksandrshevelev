@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToDoListItem } from 'src/app/models/to-do-list-models';
-import { ToDoListService } from '../to-do-list/to-do-list.service';
-import { ToastService } from 'src/app/shared/services/toast.service';
+import { ToDoListService } from '../../../../services/to-do-list.service';
+import { ToastService } from 'src/app/services/toast.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subject, takeUntil } from 'rxjs';
 

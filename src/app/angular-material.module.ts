@@ -5,6 +5,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     exports: [
@@ -14,6 +15,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
         MatIconModule,
         MatCheckboxModule,
         MatButtonToggleModule,
+        MatButtonModule,
     ],
 })
 export class AngularMaterialModule { }

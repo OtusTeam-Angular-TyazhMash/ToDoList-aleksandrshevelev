@@ -16,19 +16,19 @@
       "id": 2,
       "text": "Complete task 3",
       "description": "description for task 3",
-      "status": "InProgress"
+      "status": "In Progress"
     },
     {
       "id": 3,
       "text": "Complete task 4",
       "description": "description for task 4",
-      "status": "InProgress"
+      "status": "In Progress"
     },
     {
       "id": 4,
       "text": "Complete task 5",
       "description": "description for task 5",
-      "status": "InProgress"
+      "status": "In Progress"
     }
   ]
 }

@@ -1,12 +1,14 @@
 import { ApplicationRef, ComponentRef, EmbeddedViewRef, Injectable, createComponent } from "@angular/core";
-import { ToastComponent } from "../components/toast/toast.component";
+import { ToastComponent } from "../shared/components/toast/toast.component";
 
 export interface Toast {
     id: number;
     message: string;
 }
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class ToastService {
     private componentRef: ComponentRef<ToastComponent> | null = null;
     private toasts: Array<Toast> = [];
