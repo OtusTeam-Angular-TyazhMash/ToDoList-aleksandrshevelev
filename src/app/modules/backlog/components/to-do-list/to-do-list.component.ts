@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ToDoListItem, ToDoListItemStatus } from 'src/app/models/to-do-list-models';
-import { ToDoListService } from '../../../../services/to-do-list.service';
-import { ToastService } from 'src/app/services/toast.service';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { CreateItemFormData } from '../to-do-create-item/to-do-create-item.component';
 import { ActivatedRoute } from '@angular/router';
-import { tap } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { ToDoListDataService } from 'src/app/services/to-do-list-data.service';
 
 @Component({
     selector: 'app-to-do-list',
@@ -13,17 +12,17 @@ import { tap } from 'rxjs';
     styleUrls: ['./to-do-list.component.scss'],
 })
 export class ToDoListComponent implements OnInit {
-    toDoListItems: Array<ToDoListItem> = [];
+    toDoListItems$!: Observable<Array<ToDoListItem>>;
     isLoading = false;
     editedItemId: ToDoListItem["id"] | null = null;
     readonly toDoListItemStatus = ToDoListItemStatus;
 
-    constructor(private toDoListService: ToDoListService,
-        private toastService: ToastService,
-        private activatedRoute: ActivatedRoute) { }
+    constructor(private activatedRoute: ActivatedRoute,
+        private toDoListDataService: ToDoListDataService) { }
 
     ngOnInit(): void {
-        this.fetchToDoList();
+        this.toDoListItems$ = this.toDoListDataService.getItems;
+        this.toDoListDataService.update();
     }
 
     public get getItemIdFromRoute(): number | null {
@@ -31,58 +30,17 @@ export class ToDoListComponent implements OnInit {
             null : +this.activatedRoute.snapshot.children[0].params['id'];
     }
 
-    fetchToDoList(): void {
-        this.toDoListService.getToDoListItems().pipe(
-            tap(() => this.isLoading = true),
-        ).subscribe({
-            next: (receivedToDoListItems) => {
-                this.toDoListItems = receivedToDoListItems;
-            },
-            error: () => {
-                this.toastService.showToast("Failed to load todo list");
-            },
-            complete: () => this.isLoading = false,
-        });
-    }
-
     addToDoListItem(formData: CreateItemFormData): void {
-        this.toDoListService.addToDoListItem(formData.text, formData.description).subscribe({
-            next: (addedToDoListItem) => {
-                this.toDoListItems.push(addedToDoListItem);
-                this.toastService.showToast("Item added");
-            },
-            error: () => {
-                this.toastService.showToast("Failed to add todo");
-            },
-        });
+        this.toDoListDataService.addItem(formData);
     }
 
     deleteToDoListItemById(itemId: ToDoListItem["id"]): void {
-        this.toDoListService.deleteToDoListItemById(itemId).subscribe({
-            next: () => {
-                const deletedItemIndex = this.toDoListItems.findIndex(item => item.id === itemId);
-                if (deletedItemIndex > -1)
-                    this.toDoListItems.splice(deletedItemIndex, 1);
-                this.toastService.showToast("Todo deleted");
-            },
-            error: () => {
-                this.toastService.showToast("Failed to delete todo");
-            },
-        });
+        this.toDoListDataService.deleteItemById(itemId);
     }
 
     editToDoListItemTitleById(itemId: ToDoListItem["id"], title: ToDoListItem["text"]): void {
-        this.toDoListService.editItemTitleById(itemId, title).subscribe({
-            next: (editedToDoListItem) => {
-                const deprecatedItemIndex = this.toDoListItems.findIndex(item => item.id === editedToDoListItem.id);
-                this.toDoListItems[deprecatedItemIndex] = editedToDoListItem;
-                this.editedItemId = null;
-                this.toastService.showToast("Item edited");
-            },
-            error: () => {
-                this.toastService.showToast("Failed to edit todo");
-            },
-        });
+        this.toDoListDataService.editItemTitleById(itemId, title);
+        this.editedItemId = null;
     }
 
     setEditedItemId(itemId: ToDoListItem["id"]): void {
@@ -90,29 +48,14 @@ export class ToDoListComponent implements OnInit {
     }
 
     editToDoListItemStatusById(itemId: ToDoListItem["id"], itemStatus: ToDoListItem["status"]): void {
-        this.toDoListService.editItemStatusById(itemId, itemStatus).subscribe({
-            next: (editedToDoListItem) => {
-                const deprecatedItemIndex = this.toDoListItems.findIndex(item => item.id === editedToDoListItem.id);
-                this.toDoListItems[deprecatedItemIndex] = editedToDoListItem;
-                this.toastService.showToast("Task status has been changed");
-            },
-            error: () => {
-                this.toastService.showToast("Failed to edit todo");
-            },
-        });
+        this.toDoListDataService.editItemStatusById(itemId, itemStatus);
     }
 
     onStatusFilterChange(matButtonToggleChange: MatButtonToggleChange): void {
-        if (matButtonToggleChange.value === null)
-            this.fetchToDoList();
-        else
-            this.toDoListService.getToDoListItemsByStatus(matButtonToggleChange.value).subscribe({
-                next: (receivedToDoListItems) => {
-                    this.toDoListItems = receivedToDoListItems;
-                },
-                error: () => {
-                    this.toastService.showToast("Failed to load todo list");
-                },
-            });
+        this.toDoListItems$ = matButtonToggleChange.value === null ?
+            this.toDoListDataService.getItems :
+            this.toDoListDataService.getItems.pipe(
+                map(items => items.filter(item => item.status === matButtonToggleChange.value)),
+            );
     }
 }

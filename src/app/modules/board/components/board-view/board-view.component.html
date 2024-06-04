@@ -1,12 +1,12 @@
-<div class="board-column">
+<div class="board-column" *ngIf="(allToDoListItems$ | async) as allToDoListItems">
     <div class="header">All ({{allToDoListItems.length}})</div>
     <app-board-item-view *ngFor="let item of allToDoListItems" [title]="item.text" />
 </div>
-<div class="board-column">
+<div class="board-column" *ngIf="(inProgressToDoListItems$ | async) as inProgressToDoListItems">
     <div class="header">{{toDoListItemStatus.InProgress}} ({{inProgressToDoListItems.length}})</div>
     <app-board-item-view *ngFor="let item of inProgressToDoListItems" [title]="item.text" class="warning" />
 </div>
-<div class="board-column">
+<div class="board-column" *ngIf="(completedToDoListItems$ | async) as completedToDoListItems">
     <div class="header">{{toDoListItemStatus.Completed}} ({{completedToDoListItems.length}})</div>
     <app-board-item-view *ngFor="let item of completedToDoListItems" [title]="item.text" class="success" />
 </div>

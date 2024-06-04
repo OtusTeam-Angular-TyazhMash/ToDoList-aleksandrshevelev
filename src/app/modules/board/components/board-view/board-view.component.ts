@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, map } from 'rxjs';
 import { ToDoListItem, ToDoListItemStatus } from 'src/app/models/to-do-list-models';
-import { ToDoListService } from 'src/app/services/to-do-list.service';
+import { ToDoListDataService } from 'src/app/services/to-do-list-data.service';
 
 @Component({
     selector: 'app-board-view',
@@ -9,18 +10,20 @@ import { ToDoListService } from 'src/app/services/to-do-list.service';
 })
 export class BoardViewComponent implements OnInit {
     readonly toDoListItemStatus = ToDoListItemStatus;
-    allToDoListItems: ToDoListItem[] = [];
-    inProgressToDoListItems: ToDoListItem[] = [];
-    completedToDoListItems: ToDoListItem[] = [];
+    allToDoListItems$!: Observable<Array<ToDoListItem>>;
+    inProgressToDoListItems$!: Observable<Array<ToDoListItem>>;
+    completedToDoListItems$!: Observable<Array<ToDoListItem>>;
 
-    constructor(private toDoListService: ToDoListService) { }
+    constructor(private toDoListDataService: ToDoListDataService) { }
 
     ngOnInit(): void {
-        this.toDoListService.getToDoListItems().subscribe(
-            (toDoListItems) => {
-                this.allToDoListItems = toDoListItems;
-                this.inProgressToDoListItems = toDoListItems.filter(item => item.status === ToDoListItemStatus.InProgress);
-                this.completedToDoListItems = toDoListItems.filter(item => item.status === ToDoListItemStatus.Completed);
-            });
+        this.allToDoListItems$ = this.toDoListDataService.getItems;
+        this.inProgressToDoListItems$ = this.toDoListDataService.getItems.pipe(
+            map(items => items.filter(item => item.status === ToDoListItemStatus.InProgress)),
+        );
+        this.completedToDoListItems$ = this.toDoListDataService.getItems.pipe(
+            map(items => items.filter(item => item.status === ToDoListItemStatus.Completed)),
+        );
+        this.toDoListDataService.update();
     }
 }

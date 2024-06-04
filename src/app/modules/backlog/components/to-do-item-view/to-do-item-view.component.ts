@@ -1,10 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToDoListItem } from 'src/app/models/to-do-list-models';
-import { ToDoListService } from '../../../../services/to-do-list.service';
-import { ToastService } from 'src/app/services/toast.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, map, takeUntil } from 'rxjs';
+import { ToDoListDataService } from 'src/app/services/to-do-list-data.service';
 
 @Component({
     selector: 'app-to-do-item-view',
@@ -15,8 +13,7 @@ export class ToDoItemViewComponent implements OnInit, OnDestroy {
     componentDestroyed$: Subject<boolean> = new Subject<boolean>();
 
     constructor(private activatedRoute: ActivatedRoute,
-        private toastService: ToastService,
-        private toDoListService: ToDoListService) { }
+        private toDoListDataService: ToDoListDataService) { }
 
     ngOnDestroy(): void {
         this.componentDestroyed$.next(true);
@@ -25,13 +22,12 @@ export class ToDoItemViewComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.activatedRoute.params.pipe(takeUntil(this.componentDestroyed$)).subscribe((params) => {
-            this.toDoListService.getToDoListItemsById(params["id"]).subscribe({
-                next: (toDoListItem) => {
-                    this.itemDescription = toDoListItem.description;
-                },
-                error: (err: HttpErrorResponse) => {
-                    this.toastService.showToast(err.message);
-                },
+            this.toDoListDataService.getItems.pipe(
+                takeUntil(this.componentDestroyed$),
+                map(items => items.find(item => item.id === +params["id"])),
+            ).subscribe(item => {
+                if (item)
+                    this.itemDescription = item.description;
             });
         });
     }
