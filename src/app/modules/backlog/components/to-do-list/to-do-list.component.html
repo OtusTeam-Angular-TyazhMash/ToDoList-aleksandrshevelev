@@ -11,11 +11,11 @@
     </div>
 </ng-template>
 <ng-template #toDoListTemplate>
-    <span>Show todo: </span>
+    <span i18n="@@show_todo">Show todo: </span>
     <mat-button-toggle-group [value]="null" (change)="onStatusFilterChange($event)">
-        <mat-button-toggle [value]="null">All</mat-button-toggle>
-        <mat-button-toggle [value]="toDoListItemStatus.InProgress">{{toDoListItemStatus.InProgress}}</mat-button-toggle>
-        <mat-button-toggle [value]="toDoListItemStatus.Completed">{{toDoListItemStatus.Completed}}</mat-button-toggle>
+        <mat-button-toggle [value]="null" i18n="@@all">All</mat-button-toggle>
+        <mat-button-toggle [value]="toDoListItemStatus.InProgress">{{translatedToDoListItemStatus['In Progress']}}</mat-button-toggle>
+        <mat-button-toggle [value]="toDoListItemStatus.Completed">{{translatedToDoListItemStatus.Completed}}</mat-button-toggle>
     </mat-button-toggle-group>
     <div class="to-to-list-container">
         <ng-container *ngIf="(toDoListItems$ | async) as toDoListItems">
@@ -23,7 +23,7 @@
                 <ul>
                     <li *ngFor="let item of toDoListItems" routerLinkActive="selected" [routerLink]="[item.id]"
                         (dblclick)="setEditedItemId(item.id)" tabindex="0"
-                        [appTooltip]="'Click for select item / Double click for edit item'">
+                        [appTooltip]="translations.clickVariantsItem">
                         <app-to-do-list-item [toDoListItem]="item" [isEditMode]="item.id === editedItemId"
                             (deleteItemEvent)="deleteToDoListItemById(item.id)"
                             (editItemTitleEvent)="editToDoListItemTitleById(item.id, $event)"
@@ -36,7 +36,7 @@
             </ng-container>
         </ng-container>
         <ng-template #emptyListMessageTemplate>
-            <h2>The list is empty</h2>
+            <h2 i18n="@@empty_list">The list is empty</h2>
         </ng-template>
     </div>
 </ng-template>
@@ -44,5 +44,5 @@
     <router-outlet></router-outlet>
 </ng-template>
 <ng-template #hintTemplate>
-    <p class="hint-text">Select todo list item...</p>
+    <p class="hint-text" i18n="@@select_list_item">Select todo list item...</p>
 </ng-template>

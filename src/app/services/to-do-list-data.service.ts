@@ -4,6 +4,7 @@ import { ToDoListItem } from '../models/to-do-list-models';
 import { ToDoListService } from './to-do-list.service';
 import { CreateItemFormData } from '../modules/backlog/components/to-do-create-item/to-do-create-item.component';
 import { ToastService } from './toast.service';
+import { translations } from 'src/locale/translations';
 
 @Injectable({
     providedIn: 'root',
@@ -34,10 +35,10 @@ export class ToDoListDataService {
         this.toDoListService.addToDoListItem(formData.text, formData.description).subscribe({
             next: (addedToDoListItem) => {
                 this.toDoListItems$.next([...this.toDoListItems$.value, addedToDoListItem]);
-                this.toastService.showToast("Item added");
+                this.toastService.showToast(translations.itemAdded);
             },
             error: () => {
-                this.toastService.showToast("Failed to add todo");
+                this.toastService.showToast(translations.failedToAddTodo);
             },
         });
     }
@@ -48,10 +49,10 @@ export class ToDoListDataService {
                 const deletedItemIndex = this.toDoListItems$.value.findIndex(item => item.id === itemId);
                 if (deletedItemIndex > -1)
                     this.toDoListItems$.value.splice(deletedItemIndex, 1)
-                this.toastService.showToast("Todo deleted");
+                this.toastService.showToast(translations.todoDeleted);
             },
             error: () => {
-                this.toastService.showToast("Failed to delete todo");
+                this.toastService.showToast(translations.failedToDeleteTodo);
             },
         });
     }
@@ -61,10 +62,10 @@ export class ToDoListDataService {
             next: (editedToDoListItem) => {
                 const deprecatedItemIndex = this.toDoListItems$.value.findIndex(item => item.id === editedToDoListItem.id);
                 this.toDoListItems$.value[deprecatedItemIndex] = editedToDoListItem;
-                this.toastService.showToast("Item edited");
+                this.toastService.showToast(translations.itemEdited);
             },
             error: () => {
-                this.toastService.showToast("Failed to edit todo");
+                this.toastService.showToast(translations.failedToEditTodo);
             },
         });
     }
@@ -74,10 +75,10 @@ export class ToDoListDataService {
             next: (editedToDoListItem) => {
                 const deprecatedItemIndex = this.toDoListItems$.value.findIndex(item => item.id === editedToDoListItem.id);
                 this.toDoListItems$.value[deprecatedItemIndex] = editedToDoListItem;
-                this.toastService.showToast("Task status has been changed");
+                this.toastService.showToast(translations.taskStatusHasBeenChanged);
             },
             error: () => {
-                this.toastService.showToast("Failed to edit todo");
+                this.toastService.showToast(translations.failedToEditTodo);
             },
         });
     }

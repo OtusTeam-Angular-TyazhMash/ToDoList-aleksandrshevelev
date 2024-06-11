@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { ToDoListItem, ToDoListItemStatus } from 'src/app/models/to-do-list-models';
+import { translations } from 'src/locale/translations';
 
 @Component({
     selector: 'app-to-do-list-item',
@@ -17,6 +18,7 @@ export class ToDoListItemComponent implements OnInit {
 
     itemTitle!: ToDoListItem["text"];
     readonly toDoListItemStatus = ToDoListItemStatus;
+    readonly translations = translations;
 
     ngOnInit(): void {
         this.itemTitle = this.toDoListItem ? this.toDoListItem.text : "";

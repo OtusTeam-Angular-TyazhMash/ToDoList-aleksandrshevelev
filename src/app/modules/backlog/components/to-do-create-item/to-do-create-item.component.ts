@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToDoListItem } from 'src/app/models/to-do-list-models';
+import { translations } from 'src/locale/translations';
 
 export type CreateItemFormData = Pick<ToDoListItem, "text" | "description">;
 
@@ -12,6 +13,7 @@ export type CreateItemFormData = Pick<ToDoListItem, "text" | "description">;
 export class ToDoCreateItemComponent implements OnInit {
     toDoItemForm!: FormGroup;
     @Output() createItemEvent = new EventEmitter<CreateItemFormData>();
+    readonly translations = translations;
 
     constructor(private fb: FormBuilder) { }
 

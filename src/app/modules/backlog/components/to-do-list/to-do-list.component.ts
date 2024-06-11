@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ToDoListItem, ToDoListItemStatus } from 'src/app/models/to-do-list-models';
+import { ToDoListItem, ToDoListItemStatus, translatedToDoListItemStatus } from 'src/app/models/to-do-list-models';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { CreateItemFormData } from '../to-do-create-item/to-do-create-item.component';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { ToDoListDataService } from 'src/app/services/to-do-list-data.service';
+import { translations } from 'src/locale/translations';
 
 @Component({
     selector: 'app-to-do-list',
@@ -16,6 +17,8 @@ export class ToDoListComponent implements OnInit {
     isLoading = false;
     editedItemId: ToDoListItem["id"] | null = null;
     readonly toDoListItemStatus = ToDoListItemStatus;
+    readonly translatedToDoListItemStatus = translatedToDoListItemStatus;
+    readonly translations = translations;
 
     constructor(private activatedRoute: ActivatedRoute,
         private toDoListDataService: ToDoListDataService) { }

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2"
+	xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en-US" datatype="plaintext" original="ng2.template">
+		<body>
+			<trans-unit id="backlog" datatype="html">
+				<source>Backlog</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/app.component.html</context>
+					<context context-type="linenumber">5</context>
+				</context-group>
+				<target>Список задач</target>
+			</trans-unit>
+			<trans-unit id="board" datatype="html">
+				<source>Board</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/app.component.html</context>
+					<context context-type="linenumber">7</context>
+				</context-group>
+				<target>Доска</target>
+			</trans-unit>
+			<trans-unit id="in_progress" datatype="html">
+				<source>In progress</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/models/to-do-list-models.ts</context>
+					<context context-type="linenumber">16</context>
+				</context-group>
+				<target>В процессе</target>
+			</trans-unit>
+			<trans-unit id="completed" datatype="html">
+				<source>Completed</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/models/to-do-list-models.ts</context>
+					<context context-type="linenumber">17</context>
+				</context-group>
+				<target>Завершено</target>
+			</trans-unit>
+			<trans-unit id="add_new_todo" datatype="html">
+				<source>Add your new todo</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/modules/backlog/components/to-do-create-item/to-do-create-item.component.html</context>
+					<context context-type="linenumber">3</context>
+				</context-group>
+				<target>Добавьте Вашу новую задачу</target>
+			</trans-unit>
+			<trans-unit id="todo_title_is_required" datatype="html">
+				<source>Todo title is required</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/modules/backlog/components/to-do-create-item/to-do-create-item.component.html</context>
+					<context context-type="linenumber">6</context>
+				</context-group>
+				<target>Заголовок задачи обязателен</target>
+			</trans-unit>
+			<trans-unit id="add_description_for_todo" datatype="html">
+				<source>Add description for todo</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/modules/backlog/components/to-do-create-item/to-do-create-item.component.html</context>
+					<context context-type="linenumber">10</context>
+				</context-group>
+				<target>Добавьте описание для задачи</target>
+			</trans-unit>
+			<trans-unit id="todo_description_is_required" datatype="html">
+				<source>Todo description is required</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/modules/backlog/components/to-do-create-item/to-do-create-item.component.html</context>
+					<context context-type="linenumber">13</context>
+				</context-group>
+				<target>Описание задачи обязательно</target>
+			</trans-unit>
+			<trans-unit id="add" datatype="html">
+				<source>Add</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/modules/backlog/components/to-do-create-item/to-do-create-item.component.html</context>
+					<context context-type="linenumber">17</context>
+				</context-group>
+				<target>Добавить</target>
+			</trans-unit>
+			<trans-unit id="description" datatype="html">
+				<source>Description</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/modules/backlog/components/to-do-item-view/to-do-item-view.component.html</context>
+					<context context-type="linenumber">1</context>
+				</context-group>
+				<target>Описание</target>
+			</trans-unit>
+			<trans-unit id="delete" datatype="html">
+				<source>Delete</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/modules/backlog/components/to-do-list-item/to-do-list-item.component.html</context>
+					<context context-type="linenumber">5</context>
+				</context-group>
+				<target>Удалить</target>
+			</trans-unit>
+			<trans-unit id="item_editing" datatype="html">
+				<source>Item editing</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/modules/backlog/components/to-do-list-item/to-do-list-item.component.html</context>
+					<context context-type="linenumber">11</context>
+				</context-group>
+				<target>Редактирование задачи</target>
+			</trans-unit>
+			<trans-unit id="save" datatype="html">
+				<source>Save</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/modules/backlog/components/to-do-list-item/to-do-list-item.component.html</context>
+					<context context-type="linenumber">15</context>
+				</context-group>
+				<target>Сохранить</target>
+			</trans-unit>
+			<trans-unit id="show_todo" datatype="html">
+				<source>Show todo: </source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/modules/backlog/components/to-do-list/to-do-list.component.html</context>
+					<context context-type="linenumber">14</context>
+				</context-group>
+				<target>Показать задачи: </target>
+			</trans-unit>
+			<trans-unit id="all" datatype="html">
+				<source>All</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/modules/backlog/components/to-do-list/to-do-list.component.html</context>
+					<context context-type="linenumber">16</context>
+				</context-group>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/modules/board/components/board-view/board-view.component.html</context>
+					<context context-type="linenumber">3</context>
+				</context-group>
+				<target>Все</target>
+			</trans-unit>
+			<trans-unit id="empty_list" datatype="html">
+				<source>The list is empty</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/modules/backlog/components/to-do-list/to-do-list.component.html</context>
+					<context context-type="linenumber">39</context>
+				</context-group>
+				<target>Список пуст</target>
+			</trans-unit>
+			<trans-unit id="select_list_item" datatype="html">
+				<source>Select todo list item...</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/modules/backlog/components/to-do-list/to-do-list.component.html</context>
+					<context context-type="linenumber">47</context>
+				</context-group>
+				<target>Выберите задачу из списка...</target>
+			</trans-unit>
+			<trans-unit id="language" datatype="html">
+				<source>Language</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/shared/components/language-selector/language-selector.component.html</context>
+					<context context-type="linenumber">3</context>
+				</context-group>
+				<target>Язык</target>
+			</trans-unit>
+			<trans-unit id="navigate_to_backlog" datatype="html">
+				<source>Navigate to Backlog</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/locale/translations.ts</context>
+					<context context-type="linenumber">2</context>
+				</context-group>
+				<target>Перейти в список задач</target>
+			</trans-unit>
+			<trans-unit id="navigate_to_board" datatype="html">
+				<source>Navigate to Board</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/locale/translations.ts</context>
+					<context context-type="linenumber">3</context>
+				</context-group>
+				<target>Перейти к доске</target>
+			</trans-unit>
+			<trans-unit id="click_variants_item" datatype="html">
+				<source>Click for select item / Double click for edit item</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/locale/translations.ts</context>
+					<context context-type="linenumber">4</context>
+				</context-group>
+				<target>Клик для выбора задачи / Двойной клик для редактирования задачи</target>
+			</trans-unit>
+			<trans-unit id="add_new_item_to_list" datatype="html">
+				<source>Add a new item to the todo list</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/locale/translations.ts</context>
+					<context context-type="linenumber">5</context>
+				</context-group>
+				<target>Добавить новую задачу в список</target>
+			</trans-unit>
+			<trans-unit id="delete_item_from_list" datatype="html">
+				<source>Delete item from todo list</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/locale/translations.ts</context>
+					<context context-type="linenumber">6</context>
+				</context-group>
+				<target>Удалить задачу из списка</target>
+			</trans-unit>
+			<trans-unit id="save_item" datatype="html">
+				<source>Save item</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/locale/translations.ts</context>
+					<context context-type="linenumber">7</context>
+				</context-group>
+				<target>Сохранить задачу</target>
+			</trans-unit>
+			<trans-unit id="item_added" datatype="html">
+				<source>Item added</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/locale/translations.ts</context>
+					<context context-type="linenumber">8</context>
+				</context-group>
+				<target>Задача добавлена</target>
+			</trans-unit>
+			<trans-unit id="failed_to_add_todo" datatype="html">
+				<source>Failed to add todo</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/locale/translations.ts</context>
+					<context context-type="linenumber">9</context>
+				</context-group>
+				<target>Ошибка добавления задачи</target>
+			</trans-unit>
+			<trans-unit id="todo_deleted" datatype="html">
+				<source>Todo deleted</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/locale/translations.ts</context>
+					<context context-type="linenumber">10</context>
+				</context-group>
+				<target>Задача удалена</target>
+			</trans-unit>
+			<trans-unit id="failed_to_delete_todo" datatype="html">
+				<source>Failed to delete todo</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/locale/translations.ts</context>
+					<context context-type="linenumber">11</context>
+				</context-group>
+				<target>Ошибка удаления задачи</target>
+			</trans-unit>
+			<trans-unit id="item_edited" datatype="html">
+				<source>Item edited</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/locale/translations.ts</context>
+					<context context-type="linenumber">12</context>
+				</context-group>
+				<target>Задача отредактирована</target>
+			</trans-unit>
+			<trans-unit id="failed_to_edit_todo" datatype="html">
+				<source>Failed to edit todo</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/locale/translations.ts</context>
+					<context context-type="linenumber">13</context>
+				</context-group>
+				<target>Ошибка редактирования задачи</target>
+			</trans-unit>
+			<trans-unit id="task_status_changed" datatype="html">
+				<source>Task status has been changed</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/locale/translations.ts</context>
+					<context context-type="linenumber">14</context>
+				</context-group>
+				<target>Статус задачи был изменен</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -1,18 +1,18 @@
 <form [formGroup]="toDoItemForm">
     <mat-form-field subscriptSizing="dynamic">
-        <mat-label>Add your new todo</mat-label>
+        <mat-label i18n="@@add_new_todo">Add your new todo</mat-label>
         <input matInput type="text" formControlName="itemTitle">
         <mat-error *ngIf="toDoItemForm.controls['itemTitle'].hasError('required')">
-            Todo title is <strong>required</strong>
+            <span i18n="@@todo_title_is_required">Todo title is required</span>
         </mat-error>
     </mat-form-field>
     <mat-form-field subscriptSizing="dynamic">
-        <mat-label>Add description for todo</mat-label>
+        <mat-label i18n="@@add_description_for_todo">Add description for todo</mat-label>
         <textarea matInput formControlName="itemDescription"></textarea>
         <mat-error *ngIf="toDoItemForm.controls['itemTitle'].hasError('required')">
-            Todo description is <strong>required</strong>
+            <span i18n="@@todo_description_is_required">Todo description is required</span>
         </mat-error>
     </mat-form-field>
-    <app-button (click)="emitCreatingItem()" buttonClass="button-add" [appTooltip]="'Add a new item to the todo list'"
-        [isDisable]="!toDoItemForm.valid">Add</app-button>
+    <app-button (click)="emitCreatingItem()" buttonClass="button-add" [appTooltip]="translations.addNewItemToList"
+        [isDisable]="!toDoItemForm.valid" i18n="@@add">Add</app-button>
 </form>

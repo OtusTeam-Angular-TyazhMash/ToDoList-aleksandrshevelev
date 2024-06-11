@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { ToDoListItem, ToDoListItemStatus } from 'src/app/models/to-do-list-models';
+import { ToDoListItem, ToDoListItemStatus, translatedToDoListItemStatus } from 'src/app/models/to-do-list-models';
 import { ToDoListDataService } from 'src/app/services/to-do-list-data.service';
 
 @Component({
@@ -10,6 +10,7 @@ import { ToDoListDataService } from 'src/app/services/to-do-list-data.service';
 })
 export class BoardViewComponent implements OnInit {
     readonly toDoListItemStatus = ToDoListItemStatus;
+    readonly translatedToDoListItemStatus = translatedToDoListItemStatus;
     allToDoListItems$!: Observable<Array<ToDoListItem>>;
     inProgressToDoListItems$!: Observable<Array<ToDoListItem>>;
     completedToDoListItems$!: Observable<Array<ToDoListItem>>;
