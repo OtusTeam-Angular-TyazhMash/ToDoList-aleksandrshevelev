@@ -1,0 +1,48 @@
+<ng-container *ngIf="isLoading === true; then loadingTemplate; else toDoListTemplate" />
+
+<div class="to-do-form-container">
+    <app-to-do-create-item (createItemEvent)="addToDoListItem($event)" />
+</div>
+
+<!-- Templates -->
+<ng-template #loadingTemplate>
+    <div class="spinner-container">
+        <app-loading-spinner />
+    </div>
+</ng-template>
+<ng-template #toDoListTemplate>
+    <span i18n="@@show_todo">Show todo: </span>
+    <mat-button-toggle-group [value]="null" (change)="onStatusFilterChange($event)">
+        <mat-button-toggle [value]="null" i18n="@@all">All</mat-button-toggle>
+        <mat-button-toggle [value]="toDoListItemStatus.InProgress">{{translatedToDoListItemStatus['In Progress']}}</mat-button-toggle>
+        <mat-button-toggle [value]="toDoListItemStatus.Completed">{{translatedToDoListItemStatus.Completed}}</mat-button-toggle>
+    </mat-button-toggle-group>
+    <div class="to-to-list-container">
+        <ng-container *ngIf="(toDoListItems$ | async) as toDoListItems">
+            <ng-container *ngIf="toDoListItems.length> 0; else emptyListMessageTemplate">
+                <ul>
+                    <li *ngFor="let item of toDoListItems" routerLinkActive="selected" [routerLink]="[item.id]"
+                        (dblclick)="setEditedItemId(item.id)" tabindex="0"
+                        [appTooltip]="translations.clickVariantsItem">
+                        <app-to-do-list-item [toDoListItem]="item" [isEditMode]="item.id === editedItemId"
+                            (deleteItemEvent)="deleteToDoListItemById(item.id)"
+                            (editItemTitleEvent)="editToDoListItemTitleById(item.id, $event)"
+                            (changeItemStatusEvent)="editToDoListItemStatusById(item.id, $event)" />
+                    </li>
+                </ul>
+                <div class="description-container">
+                    <ng-container *ngIf="getItemIdFromRoute !== null; then descriptionTemplate; else hintTemplate" />
+                </div>
+            </ng-container>
+        </ng-container>
+        <ng-template #emptyListMessageTemplate>
+            <h2 i18n="@@empty_list">The list is empty</h2>
+        </ng-template>
+    </div>
+</ng-template>
+<ng-template #descriptionTemplate>
+    <router-outlet></router-outlet>
+</ng-template>
+<ng-template #hintTemplate>
+    <p class="hint-text" i18n="@@select_list_item">Select todo list item...</p>
+</ng-template>

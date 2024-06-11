@@ -1,1 +1,3 @@
-<button [disabled]="isDisable" [class]="buttonClass">{{title}}</button>
+<button [disabled]="isDisable" [class]="buttonClass">
+    <ng-content></ng-content>
+</button>
